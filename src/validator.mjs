@@ -17,10 +17,14 @@ function getType(value) {
 }
 
 export default function validate(options, properties) {
+  let currentType = "";
   if (typeof options === "object" && options !== null) {
     for (const [key, type] of Object.entries(properties)) {
+      currentType = getType(options[key]);
       if (getType(options[key]) !== type) {
-        throw new TypeError("Property " + key + " must be " + type);
+        throw new TypeError(
+          "Property " + key + " must be " + type + ", not " + currentType
+        );
       }
     }
   }

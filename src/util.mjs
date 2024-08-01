@@ -1,5 +1,7 @@
 import * as THREE from "three";
-import { default as validate } from "/src/validator.js";
+import { default as validate } from "/src/validator.mjs";
+import { FontLoader } from "three/addons/loaders/FontLoader.js";
+import { TextGeometry } from "three/addons/geometries/TextGeometry.js";
 
 export function createMeshBox(options) {
   if (
@@ -68,6 +70,21 @@ export function createLineRectangle(options) {
   return line;
 }
 
+export function createLineTriangle(options) {
+  if (
+    !validate(options, {
+      length: "Number",
+      color: "Number",
+    })
+  ) {
+    return null;
+  }
+  const geometry = new THREE.CircleGeometry(options.length * Math.sqrt(3), 3);
+  const material = new THREE.LineBasicMaterial({ color: options.color });
+  const line = new THREE.Line(geometry, material);
+  return line;
+}
+
 export function createLineCircle(options) {
   if (
     !validate(options, {
@@ -82,4 +99,44 @@ export function createLineCircle(options) {
   const material = new THREE.LineBasicMaterial({ color: options.color });
   const line = new THREE.Line(geometry, material);
   return line;
+}
+
+export function createText(options) {
+  if (
+    !validate(options, {
+      text: "String",
+      size: "Number",
+      color: "Number",
+      scene: "Scene",
+    })
+  ) {
+    return null;
+  }
+  const loader = new FontLoader();
+  loader.load("/src/fonts/helvetiker_regular.typeface.json", function (font) {
+    const geometry = new TextGeometry(options.text, {
+      font: font,
+      size: options.size,
+      depth: 5,
+      curveSegments: 5,
+      bevelEnabled: true,
+      bevelThickness: 5,
+      bevelSize: 5,
+      bevelOffset: 0,
+      bevelSegments: 5,
+    });
+    geometry.computeBoundingBox();
+    const materials = [
+      new THREE.MeshPhongMaterial({ color: options.color, flatShading: true }), // front
+      new THREE.MeshPhongMaterial({ color: options.color }), // side
+    ];
+    const text = new THREE.Mesh(geometry, materials);
+    text.position.x =
+      -0.5 * (geometry.boundingBox.max.x - geometry.boundingBox.min.x);
+    text.position.y = 30;
+    text.position.z = 0;
+    text.rotation.x = 0;
+    text.rotation.y = Math.PI * 2;
+    options.scene.add(text);
+  });
 }

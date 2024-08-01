@@ -23,7 +23,7 @@ scene.add(dirLight);
 // Point light
 const pointLight = new THREE.PointLight(0xffffff, 4.5, 0, 0);
 pointLight.color.setHSL(Math.random(), 1, 0.5);
-pointLight.position.set(0, 100, 90);
+pointLight.position.set(0, 100, 1000);
 scene.add(pointLight);
 
 // Renderer

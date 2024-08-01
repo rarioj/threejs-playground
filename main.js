@@ -37,17 +37,17 @@ if (WebGL.isWebGL2Available()) {
     length: 100,
     color: 0xccff99,
   });
-  const text = createText({
+  const text = await createText({
     text: "Playground",
     size: 80,
     color: 0xff99cc,
-    scene: playground.scene,
   });
   playground.scene.add(meshBox);
   playground.scene.add(lineBox);
   playground.scene.add(lineRectangle);
   playground.scene.add(lineCircle);
   playground.scene.add(lineTriangle);
+  playground.scene.add(text);
   playground.renderer.setAnimationLoop(() => {
     meshBox.rotation.x -= 0.2;
     meshBox.rotation.y += 0.2;

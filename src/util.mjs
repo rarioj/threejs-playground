@@ -107,36 +107,41 @@ export function createText(options) {
       text: "String",
       size: "Number",
       color: "Number",
-      scene: "Scene",
     })
   ) {
     return null;
   }
   const loader = new FontLoader();
-  loader.load("/src/fonts/helvetiker_regular.typeface.json", function (font) {
-    const geometry = new TextGeometry(options.text, {
-      font: font,
-      size: options.size,
-      depth: 5,
-      curveSegments: 5,
-      bevelEnabled: true,
-      bevelThickness: 5,
-      bevelSize: 5,
-      bevelOffset: 0,
-      bevelSegments: 5,
+  const text = new Promise((resolve, reject) => {
+    loader.load("/src/fonts/helvetiker_regular.typeface.json", function (font) {
+      const geometry = new TextGeometry(options.text, {
+        font: font,
+        size: options.size,
+        depth: 5,
+        curveSegments: 5,
+        bevelEnabled: true,
+        bevelThickness: 5,
+        bevelSize: 5,
+        bevelOffset: 0,
+        bevelSegments: 5,
+      });
+      geometry.computeBoundingBox();
+      const materials = [
+        new THREE.MeshPhongMaterial({
+          color: options.color,
+          flatShading: true,
+        }), // front
+        new THREE.MeshPhongMaterial({ color: options.color }), // side
+      ];
+      const text = new THREE.Mesh(geometry, materials);
+      text.position.x =
+        -0.5 * (geometry.boundingBox.max.x - geometry.boundingBox.min.x);
+      text.position.y = 30;
+      text.position.z = 0;
+      text.rotation.x = 0;
+      text.rotation.y = Math.PI * 2;
+      resolve(text);
     });
-    geometry.computeBoundingBox();
-    const materials = [
-      new THREE.MeshPhongMaterial({ color: options.color, flatShading: true }), // front
-      new THREE.MeshPhongMaterial({ color: options.color }), // side
-    ];
-    const text = new THREE.Mesh(geometry, materials);
-    text.position.x =
-      -0.5 * (geometry.boundingBox.max.x - geometry.boundingBox.min.x);
-    text.position.y = 30;
-    text.position.z = 0;
-    text.rotation.x = 0;
-    text.rotation.y = Math.PI * 2;
-    options.scene.add(text);
   });
+  return text;
 }

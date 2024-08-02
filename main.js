@@ -1,3 +1,4 @@
+import * as THREE from "three";
 import WebGL from "three/addons/capabilities/WebGL.js";
 import { default as playground } from "/src/init.mjs";
 import {
@@ -7,6 +8,7 @@ import {
   createLineCircle,
   createLineTriangle,
   createText,
+  createModel,
 } from "/src/util.mjs";
 
 if (WebGL.isWebGL2Available()) {
@@ -34,20 +36,46 @@ if (WebGL.isWebGL2Available()) {
     color: 0xff99cc,
   });
   const lineTriangle = createLineTriangle({
-    length: 100,
+    length: 125,
     color: 0xccff99,
   });
   const text = await createText({
-    text: "Playground",
-    size: 80,
-    color: 0xff99cc,
+    text: "Pack my box with\nfive dozen liquor jugs",
+    size: 45,
+    color: 0xcccccc,
   });
-  playground.scene.add(meshBox);
-  playground.scene.add(lineBox);
-  playground.scene.add(lineRectangle);
-  playground.scene.add(lineCircle);
-  playground.scene.add(lineTriangle);
+  const modelIronHide = await createModel({
+    model: "rigged_ironhide__transformers_dotm",
+  });
+  modelIronHide.scale.set(50, 50, 50);
+  await playground.renderer.compileAsync(
+    modelIronHide,
+    playground.camera,
+    playground.scene
+  );
+  const modelMazda = await createModel({
+    model: "mazda_787b",
+  });
+  modelMazda.scale.set(100, 100, 100);
+  await playground.renderer.compileAsync(
+    modelMazda,
+    playground.camera,
+    playground.scene
+  );
+  const group = new THREE.Group();
+  group.add(meshBox);
+  group.add(lineBox);
+  group.add(lineRectangle);
+  group.add(lineCircle);
+  group.add(lineTriangle);
+  text.position.set(-450, 250, 0);
+  group.position.set(250, 250, 0);
+  modelIronHide.position.set(0, -200, 0);
+  modelMazda.position.set(-350, -200, 0);
+  playground.scene.add(group);
   playground.scene.add(text);
+  playground.scene.add(modelIronHide);
+  playground.scene.add(modelMazda);
   playground.renderer.setAnimationLoop(() => {
     meshBox.rotation.x -= 0.2;
     meshBox.rotation.y += 0.2;
@@ -63,6 +91,7 @@ if (WebGL.isWebGL2Available()) {
     if (playground.camera.position.z <= 1000) {
       playground.camera.position.z += 1;
     }
+    playground.controls.update();
     playground.renderer.render(playground.scene, playground.camera);
   });
 } else {

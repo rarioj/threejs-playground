@@ -2,6 +2,7 @@ import * as THREE from "three";
 import { default as validate } from "/src/validator.mjs";
 import { FontLoader } from "three/addons/loaders/FontLoader.js";
 import { TextGeometry } from "three/addons/geometries/TextGeometry.js";
+import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 
 export function createMeshBox(options) {
   if (
@@ -113,17 +114,17 @@ export function createText(options) {
   }
   const loader = new FontLoader();
   const text = new Promise((resolve, reject) => {
-    loader.load("/src/fonts/helvetiker_regular.typeface.json", function (font) {
+    loader.load("/src/fonts/optimer_regular.typeface.json", function (font) {
       const geometry = new TextGeometry(options.text, {
         font: font,
         size: options.size,
-        depth: 5,
+        depth: 10,
         curveSegments: 5,
         bevelEnabled: true,
-        bevelThickness: 5,
-        bevelSize: 5,
+        bevelThickness: 1,
+        bevelSize: 1,
         bevelOffset: 0,
-        bevelSegments: 5,
+        bevelSegments: 10,
       });
       geometry.computeBoundingBox();
       const materials = [
@@ -144,4 +145,29 @@ export function createText(options) {
     });
   });
   return text;
+}
+
+export function createModel(options) {
+  if (
+    !validate(options, {
+      model: "String",
+    })
+  ) {
+    return null;
+  }
+  const loader = new GLTFLoader();
+  const model = new Promise((resolve, reject) => {
+    loader.load(
+      "/src/models/" + options.model + "/scene.gltf",
+      async function (gltf) {
+        resolve(gltf.scene);
+      },
+      undefined,
+      function (error) {
+        console.error(error);
+        reject(error);
+      }
+    );
+  });
+  return model;
 }

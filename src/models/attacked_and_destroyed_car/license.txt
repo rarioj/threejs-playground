@@ -1,0 +1,11 @@
+Model Information:
+* title:	Attacked And Destroyed Car
+* source:	https://sketchfab.com/3d-models/attacked-and-destroyed-car-96b36728cc9a4abfa2a17af74f48ad12
+* author:	Serhii Revenko (https://sketchfab.com/r.sergey01)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Attacked And Destroyed Car" (https://sketchfab.com/3d-models/attacked-and-destroyed-car-96b36728cc9a4abfa2a17af74f48ad12) by Serhii Revenko (https://sketchfab.com/r.sergey01) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

@@ -1,6 +1,6 @@
 import * as THREE from "three";
 import WebGL from "three/addons/capabilities/WebGL.js";
-import { default as playground } from "/src/init.mjs";
+import { default as playground } from "/scripts/init.mjs";
 import {
   createMeshBox,
   createLineBox,
@@ -9,10 +9,9 @@ import {
   createLineTriangle,
   createText,
   createModel,
-} from "/src/util.mjs";
+} from "/scripts/util.mjs";
 
 if (WebGL.isWebGL2Available()) {
-  document.body.appendChild(playground.renderer.domElement);
   const meshBox = createMeshBox({
     width: 10,
     height: 20,
@@ -94,6 +93,7 @@ if (WebGL.isWebGL2Available()) {
     playground.controls.update();
     playground.renderer.render(playground.scene, playground.camera);
   });
+  document.body.appendChild(playground.renderer.domElement);
 } else {
   const warning = WebGL.getWebGL2ErrorMessage();
   document.body.appendChild(warning);

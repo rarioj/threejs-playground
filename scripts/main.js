@@ -52,6 +52,7 @@ if (WebGL.isWebGL2Available()) {
     playground.camera,
     playground.scene
   );
+  /*
   const modelMazda = await createModel({
     model: "mazda_787b",
   });
@@ -61,6 +62,7 @@ if (WebGL.isWebGL2Available()) {
     playground.camera,
     playground.scene
   );
+  */
   const group = new THREE.Group();
   group.add(meshBox);
   group.add(lineBox);
@@ -69,13 +71,15 @@ if (WebGL.isWebGL2Available()) {
   group.add(lineTriangle);
   text.position.set(-450, 250, 0);
   group.position.set(250, 250, 0);
-  modelIronHide.position.set(0, -200, 0);
-  modelMazda.position.set(-350, -200, 0);
+  modelIronHide.position.set(-200, -200, 0);
+  //modelMazda.position.set(-350, -200, 0);
   playground.scene.add(group);
   playground.scene.add(text);
   playground.scene.add(modelIronHide);
-  playground.scene.add(modelMazda);
-  playground.renderer.setAnimationLoop(() => {
+  //playground.scene.add(modelMazda);
+
+  function animate(time) {
+    time *= 0.001;
     meshBox.rotation.x -= 0.2;
     meshBox.rotation.y += 0.2;
     meshBox.rotation.z -= 0.2;
@@ -92,7 +96,9 @@ if (WebGL.isWebGL2Available()) {
     }
     playground.controls.update();
     playground.renderer.render(playground.scene, playground.camera);
-  });
+    requestAnimationFrame(animate);
+  }
+  requestAnimationFrame(animate);
   document.body.appendChild(playground.renderer.domElement);
 } else {
   const warning = WebGL.getWebGL2ErrorMessage();

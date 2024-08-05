@@ -140,7 +140,7 @@ export function createText(options) {
     const loader = new FontLoader();
     const text = new Promise((resolve, reject) => {
       loader.load(
-        "/scripts/fonts/optimer_regular.typeface.json",
+        "/scripts/fonts/gentilis_regular.typeface.json",
         function (font) {
           const geometry = new TextGeometry(options.text, {
             font: font,
@@ -190,7 +190,14 @@ export function createModel(options) {
         async function (gltf) {
           resolve(gltf.scene);
         },
-        undefined,
+        function (xhr) {
+          const console = document.querySelector("#console");
+          const percent = (xhr.loaded / xhr.total) * 100;
+          console.innerHTML = "Model " + percent + "% loaded";
+          if (percent >= 100) {
+            console.style.display = "none";
+          }
+        },
         function (error) {
           console.error(error);
           reject(error);

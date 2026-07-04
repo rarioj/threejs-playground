@@ -19,15 +19,11 @@ import appList from "./app/module.js";
     const classname = imported.default;
     registry.set("app.classname", classname);
 
-    const options = Object.assign(
-      {},
-      config?.options || {},
-      imported.default?.options || {}
-    );
+    const options = Object.assign({}, config?.options || {}, imported.default?.options || {});
     registry.set("app.options", options);
 
     const instance = new classname({ registry, ...options });
-    document.title = `Web3D Playground ▸ Apps ▸ ${instance.constructor.name}`;
+    document.title = `ThreeJS Playground ▸ Apps ▸ ${instance.constructor.name}`;
     registry.set("app.instance", instance);
 
     if (Boolean(expose) === true) {

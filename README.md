@@ -1,5 +1,5 @@
-# Web3D Playground
+# ThreeJS Playground
 
-> Personal Web3D experimentation and learning space.
+> Personal ThreeJS experimentation and learning space.
 
-Check the GitHub page: [Web3D Playground](https://rarioj.github.io/web3d-playground/)
+Check the GitHub page: [ThreeJS Playground](https://rarioj.github.io/threejs-playground/)

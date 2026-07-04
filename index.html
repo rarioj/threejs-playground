@@ -1,18 +1,12 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
     <link rel="icon" href="./favicon.ico" type="image/x-icon" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Web3D Playground</title>
-    <link
-      rel="stylesheet"
-      href="https://unpkg.com/simpledotcss/simple.min.css"
-    />
-    <link
-      rel="stylesheet"
-      href="https://unpkg.com/font-awesome@4.7.0/css/font-awesome.min.css"
-    />
+    <title>ThreeJS Playground</title>
+    <link rel="stylesheet" href="https://unpkg.com/simpledotcss/simple.min.css" />
+    <link rel="stylesheet" href="https://unpkg.com/font-awesome@4.7.0/css/font-awesome.min.css" />
     <script src="https://cdn.jsdelivr.net/npm/showdown@2.1.0/dist/showdown.min.js"></script>
   </head>
   <body>
@@ -21,21 +15,17 @@
         <a href="./index.html" id="nav-apps">Apps</a>
         <a href="./index.html?setup=1" id="nav-setup">Setup</a>
         <a href="./index.html?notes=1" id="nav-notes">Notes</a>
-        <a href="https://github.com/rarioj/web3d-playground" target="_blank"
-          ><i class="fa fa-github" aria-hidden="true"></i> GitHub</a
-        >
+        <a href="https://github.com/rarioj/threejs-playground" target="_blank"><i class="fa fa-github" aria-hidden="true"></i> GitHub</a>
       </nav>
-      <h1>Web3D Playground</h1>
-      <p><mark>Personal Web3D experimentation and learning space.</mark></p>
+      <h1>ThreeJS Playground</h1>
+      <p><mark>Personal ThreeJS experimentation and learning space.</mark></p>
     </header>
 
     <main></main>
 
     <footer>
       Converted from a markdown file into HTML on the fly using
-      <a href="https://showdownjs.com/" target="_blank">Showdown.js</a> and
-      styled with
-      <a href="https://simplecss.org/" target="_blank">Simple.css</a>.
+      <a href="https://showdownjs.com/" target="_blank">Showdown.js</a> and styled with <a href="https://simplecss.org/" target="_blank">Simple.css</a>.
     </footer>
     <script>
       (async () => {
@@ -72,7 +62,7 @@
         await fetchMarkdown(mdfile);
 
         const title = document.getElementsByTagName("h1")[1];
-        document.title = `${title.innerText} | Web3D Playground`;
+        document.title = `${title.innerText} | ThreeJS Playground`;
       })();
     </script>
   </body>
